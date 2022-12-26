@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Dumper Bin";
+}
+
+<div>
+    <h1>Small Files - Buffered <u>Model Binding</u> to Physical storage</h1>
+    <form action="Home/UploadImages" enctype="multipart/form-data" method="post" onsubmit="UploadFile(this); return false;">
+        <dl>
+            <dt>
+                <label for="FileUpload_FormFile">File abc</label>
+            </dt>
+            <dd>
+                <input id="FileUpload_FormFile" type="file" name="imageFiles" multiple>
+            </dd>
+        </dl>
+        <input class="btn" type="submit" value="Upload" />
+        <div>
+            <output name="result"></output>
+        </div>
+    </form>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<script>
+    async function UploadFile(formElement) {
+        var resultElem = formElement.elements.namedItem("result");
+        const formData = new FormData(formElement);
+        console.log(formData);
+        try {
+            const response = await fetch(formElement.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            resultElem.value = 'Result is : ' + response.status + ' ' + response.statusText;
+        } catch (err) {
+            console.log("It's messed up", err);
+        }
+    }
+</script>
