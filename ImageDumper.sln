@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DumperWeb", "DumperWeb\DumperWeb.csproj", "{93841C24-1D39-4DC9-A1B7-1BC50578C677}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{51C844DF-1A04-45F8-B3AC-0ECCACF30A11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DumperApplicationCore", "DAL\DumperApplicationCore.csproj", "{51C844DF-1A04-45F8-B3AC-0ECCACF30A11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

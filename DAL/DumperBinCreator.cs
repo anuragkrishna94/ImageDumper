@@ -1,4 +1,4 @@
-﻿namespace DAL
+﻿namespace DumperApplicationCore
 {
     internal class DumperBinCreator : DumperFactory
     {
