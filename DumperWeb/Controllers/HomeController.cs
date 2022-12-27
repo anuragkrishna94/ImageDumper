@@ -1,4 +1,5 @@
-﻿using DumperWeb.Models;
+﻿using DumperApplicationCore.BusinessLogic;
+using DumperWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -8,11 +9,13 @@ namespace DumperWeb.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly DumpAndFetch _manager;
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration)
+        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, DumpAndFetch manager)
         {
             _configuration = configuration;
             _logger = logger;
+            _manager = manager;
         }
 
         public IActionResult Index()
@@ -23,6 +26,7 @@ namespace DumperWeb.Controllers
         [HttpPost]
         public IActionResult CreateDumper()
         {
+            _manager.CreateDumper();
             return RedirectToActionPermanent("InsideDumper");
         }
 

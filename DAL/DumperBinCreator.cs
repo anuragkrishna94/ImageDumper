@@ -1,4 +1,6 @@
-﻿namespace DumperApplicationCore
+﻿using DumperApplicationCore.Models;
+
+namespace DumperApplicationCore
 {
     internal class DumperBinCreator : DumperFactory
     {

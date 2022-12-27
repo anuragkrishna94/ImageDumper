@@ -1,3 +1,6 @@
+using DumperApplicationCore;
+using DumperApplicationCore.BusinessLogic;
+
 namespace DumperWeb
 {
     public class Program
@@ -8,6 +11,8 @@ namespace DumperWeb
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSqlServerConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
+            builder.Services.AddScoped(typeof(DumpAndFetch));
 
             var app = builder.Build();
 

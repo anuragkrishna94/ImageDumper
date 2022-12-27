@@ -1,6 +1,6 @@
-﻿namespace DumperApplicationCore
+﻿namespace DumperApplicationCore.Models
 {
-    internal class DumperBin : IThing
+    internal class Dumper : IThing
     {
         private readonly string? _uniqueTitle;
         public string UniqueTitle
@@ -14,9 +14,10 @@
 
         public string SetUniqueTitle(string title = "")
         {
-            return title;
+            return Guid.NewGuid().ToString();
         }
 
         public ICollection<string> ImageURLs { get; set; }
+        public ICollection<DumperBin> DumperBins { get; set; }
     }
 }
