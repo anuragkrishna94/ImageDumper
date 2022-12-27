@@ -1,4 +1,5 @@
 ﻿using DumperApplicationCore.BusinessLogic;
+using DumperWeb.Helper;
 using DumperWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -45,18 +46,20 @@ namespace DumperWeb.Controllers
         {
             long size = imageFiles.Sum(f => f.Length);
 
-            foreach(var formFile in imageFiles)
-            {
-                if(formFile.Length > 0)
-                {
-                    string fileName = Path.Combine(_configuration.GetValue<string>("ImageDumpLoc"), $"{Guid.NewGuid()}.png");
+            //foreach(var formFile in imageFiles)
+            //{
+            //    if(formFile.Length > 0)
+            //    {
+            //        string fileName = Path.Combine(_configuration.GetValue<string>("ImageDumpLoc"), $"{Guid.NewGuid()}.png");
 
-                    using var stream = System.IO.File.Create(fileName);
-                    await formFile.CopyToAsync(stream);
-                }
-            }
+            //        using var stream = System.IO.File.Create(fileName);
+            //        await formFile.CopyToAsync(stream);
+            //    }
+            //}
 
-            return Ok(new {statuc = imageFiles.Count, count = imageFiles.Count, size });
+            await _manager.ProcessObjectUploadAsync(imageFiles, _configuration.GetValue<string>("ImageDumpLoc"));
+
+            return Ok(new { count = imageFiles.Count, size });
         }
 
         public IActionResult Privacy()

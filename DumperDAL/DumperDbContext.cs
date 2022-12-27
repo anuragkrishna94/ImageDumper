@@ -7,6 +7,7 @@ namespace DumperDAL
     {
         internal DbSet<Dumper> Dumper { get; set; }
         internal DbSet<DumperBin> DumperBin { get; set; }
+        internal DbSet<DumperObject> Dumperobject { get; set; }
 
         public DumperDbContext(DbContextOptions<DumperDbContext> options) : base(options)
         {}
