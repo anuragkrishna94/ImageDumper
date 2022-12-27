@@ -1,4 +1,6 @@
-﻿namespace DumperApplicationCore.Models
+﻿using DumperApplicationCore.UnusedFactoryFiles;
+
+namespace DumperApplicationCore.Models
 {
     internal class Dumper : IThing
     {

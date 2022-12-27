@@ -1,6 +1,6 @@
 ﻿using DumperApplicationCore.Models;
 
-namespace DumperApplicationCore
+namespace DumperApplicationCore.UnusedFactoryFiles
 {
     internal class DumperBinCreator : DumperFactory
     {

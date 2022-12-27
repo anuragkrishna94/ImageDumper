@@ -1,4 +1,4 @@
-﻿namespace DumperApplicationCore
+﻿namespace DumperApplicationCore.UnusedFactoryFiles
 {
     abstract class DumperFactory
     {
