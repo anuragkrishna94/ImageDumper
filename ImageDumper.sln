@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DumperWeb", "DumperWeb\Dump
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DumperApplicationCore", "DAL\DumperApplicationCore.csproj", "{51C844DF-1A04-45F8-B3AC-0ECCACF30A11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DumperDAL", "DumperDAL\DumperDAL.csproj", "{B880AB33-91B6-4122-9B63-C7F36EA2CFC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{51C844DF-1A04-45F8-B3AC-0ECCACF30A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51C844DF-1A04-45F8-B3AC-0ECCACF30A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51C844DF-1A04-45F8-B3AC-0ECCACF30A11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B880AB33-91B6-4122-9B63-C7F36EA2CFC7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B880AB33-91B6-4122-9B63-C7F36EA2CFC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B880AB33-91B6-4122-9B63-C7F36EA2CFC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B880AB33-91B6-4122-9B63-C7F36EA2CFC7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
