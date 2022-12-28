@@ -13,7 +13,7 @@ namespace DumperApplicationCore.BusinessLogic
             _repository = new(_context);
         }
 
-        public bool CreateDumper()
+        public string CreateDumper()
         {
             DumperDAL.Entities.Dumper entityDumper = new()
             {
@@ -21,7 +21,14 @@ namespace DumperApplicationCore.BusinessLogic
                 CreatedAt = DateTime.Now,
                 IsDestroyed = false
             };
-            return _repository.CreateDumper(entityDumper);
+            if (_repository.CreateDumper(entityDumper)) return entityDumper.UniqueTitle;
+            return "";
+        }
+
+        public bool CheckIfDumperNameIsValid(string dumperName)
+        {
+            if(string.IsNullOrEmpty(dumperName)) return false;
+            return _repository.GetDumperIDByTitle(dumperName) > 0;
         }
 
         public bool CreateDumperBin(string dumperBinTitle)
@@ -34,18 +41,18 @@ namespace DumperApplicationCore.BusinessLogic
             return _repository.CreateDumperBin(entityDumperBin);
         }
 
-        public async Task ProcessObjectUploadAsync(List<IFormFile> imageFiles, string dumpLoc)
+        public async Task ProcessObjectUploadAsync(List<IFormFile> imageFiles, string dumpLoc, string dumperName)
         {
             // Get Metadata and pass it on to the method below
             // Meanwhile, send processed byte stream and location to DAL
             // Class other than repository has to deal with this.
 
             FileRepository fileRepo = new();
-            await fileRepo.CopyFilesAsync(imageFiles, dumpLoc);
-            await InsertObjectMetaDataAsync(imageFiles, "Randomized&|&0");
+            List<string> constructedFileNames = await fileRepo.CopyFilesAsync(imageFiles, dumpLoc);
+            await InsertObjectMetaDataAsync(imageFiles, $"{dumperName}&|&0", constructedFileNames);
         }
 
-        public async Task InsertObjectMetaDataAsync(List<IFormFile> imageFiles, string objContainerParam)
+        public async Task InsertObjectMetaDataAsync(List<IFormFile> imageFiles, string objContainerParam, List<string> constructedFileNames)
         {
             // Name
             // Extension
@@ -67,7 +74,7 @@ namespace DumperApplicationCore.BusinessLogic
             int dumperId = _repository.GetDumperIDByTitle(containerParams[0]);
             int dumperBinId = Convert.ToInt32(containerParams[1]);
 
-            await _repository.InsertImageMetaDataAsync(fileNames, dumperId, dumperBinId);
+            await _repository.InsertImageMetaDataAsync(fileNames, dumperId, dumperBinId, constructedFileNames);
         }
     }
 }

@@ -11,5 +11,6 @@ namespace DumperDAL.Entities
         public string FileName { get; set; }
         public int ParentDumperID { get; set; }
         public int ParentDumperBinID { get; set; }
+        public string ConstructedFileName { get; set; }
     }
 }

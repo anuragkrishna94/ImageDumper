@@ -1,18 +1,23 @@
-﻿@{
+﻿@model string
+@{
     ViewData["Title"] = "Dumper Bin";
 }
 
 <div>
-    <h1>Small Files - Buffered <u>Model Binding</u> to Physical storage</h1>
-    <form action="~/Home/UploadImages" enctype="multipart/form-data" method="post" onsubmit="UploadFile(this); return false;">
+    <p>Paste this URL in the browser to acess this dumper: @Html.ActionLink("Copy URL", "InsideDumper", "Dumper")</p>
+</div>
+
+<div>
+    <form action="~/Dumper/UploadImages" enctype="multipart/form-data" method="post" onsubmit="UploadFile(this); return false;">
         <dl>
             <dt>
-                <label for="FileUpload_FormFile">File abc</label>
+                <label for="FileUpload_FormFile">Upload Images</label>
             </dt>
             <dd>
                 <input id="FileUpload_FormFile" type="file" name="imageFiles" multiple>
             </dd>
         </dl>
+        <input type="text" name="dumperName" value="@Model" hidden />
         <input class="btn" type="submit" value="Upload" />
         <div>
             <output name="result"></output>

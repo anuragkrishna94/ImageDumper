@@ -9,12 +9,10 @@ namespace DumperWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IConfiguration _configuration;
         private readonly DumpAndFetch _manager;
 
-        public HomeController(ILogger<HomeController> logger, IConfiguration configuration, DumpAndFetch manager)
+        public HomeController(ILogger<HomeController> logger, DumpAndFetch manager)
         {
-            _configuration = configuration;
             _logger = logger;
             _manager = manager;
         }
@@ -27,39 +25,8 @@ namespace DumperWeb.Controllers
         [HttpPost]
         public IActionResult CreateDumper()
         {
-            _manager.CreateDumper();
-            return RedirectToActionPermanent("InsideDumper");
-        }
-
-        public IActionResult InsideDumper()
-        {
-            return View("InsideDumperBin");
-        }
-
-        public IActionResult InsideDumperBin()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UploadImagesAsync(List<IFormFile> imageFiles)
-        {
-            long size = imageFiles.Sum(f => f.Length);
-
-            //foreach(var formFile in imageFiles)
-            //{
-            //    if(formFile.Length > 0)
-            //    {
-            //        string fileName = Path.Combine(_configuration.GetValue<string>("ImageDumpLoc"), $"{Guid.NewGuid()}.png");
-
-            //        using var stream = System.IO.File.Create(fileName);
-            //        await formFile.CopyToAsync(stream);
-            //    }
-            //}
-
-            await _manager.ProcessObjectUploadAsync(imageFiles, _configuration.GetValue<string>("ImageDumpLoc"));
-
-            return Ok(new { count = imageFiles.Count, size });
+            string dumperName = _manager.CreateDumper();
+            return RedirectToAction($"InsideDumper", "Dumper", new { dumperName });
         }
 
         public IActionResult Privacy()
