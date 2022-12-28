@@ -49,5 +49,10 @@ namespace DumperDAL
             _context.AddRange(dumperObjects);
             return await _context.SaveChangesAsync();
         }
+
+        public List<string> GetImagesNamesByDumperID(int dumperId)
+        {
+            return _context.Dumperobject.Where(x => x.ParentDumperID == dumperId).Select(x => x.ConstructedFileName).ToList();
+        }
     }
 }

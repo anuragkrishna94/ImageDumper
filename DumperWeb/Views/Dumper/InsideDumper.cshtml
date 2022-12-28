@@ -1,4 +1,4 @@
-﻿@model string
+﻿@model DumperViewModel
 @{
     ViewData["Title"] = "Dumper Bin";
 }
@@ -17,13 +17,27 @@
                 <input id="FileUpload_FormFile" type="file" name="imageFiles" multiple>
             </dd>
         </dl>
-        <input type="text" name="dumperName" value="@Model" hidden />
+        <input type="text" name="dumperName" value="@Model.DumperName" hidden />
         <input class="btn" type="submit" value="Upload" />
         <div>
             <output name="result"></output>
         </div>
     </form>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+<div>
+    @{
+        if(Model.ImageURLs.Count > 0)
+        {
+            foreach(string imagePathURL in Model.ImageURLs)
+            {
+                <text>
+                    <img src="@Url.Action("GetImageBytes","Dumper",new {imagePathURL})" />
+                </text>
+            }
+        }
+    }
 </div>
 
 <script>

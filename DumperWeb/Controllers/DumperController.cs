@@ -1,4 +1,5 @@
 ﻿using DumperApplicationCore.BusinessLogic;
+using DumperWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DumperWeb.Controllers
@@ -16,9 +17,21 @@ namespace DumperWeb.Controllers
         [Route("Dumper/Within/{dumperName}")]
         public IActionResult InsideDumper(string dumperName)
         {
-            if(_manager.CheckIfDumperNameIsValid(dumperName))
-                return View(model: dumperName);
-            return RedirectToActionPermanent("Error", "Home");
+            if(!_manager.CheckIfDumperNameIsValid(dumperName))
+                return RedirectToActionPermanent("Error", "Home");
+            
+            List<string> imageURLs = _manager.GetImagesOfDumper(dumperName);
+            for(int i = 0;i < imageURLs.Count;i++)
+            {
+                imageURLs[i] = Path.Combine(_configuration.GetValue<string>("ImageDumpLoc"), imageURLs.ElementAt(i));
+            }
+            return View(model: new DumperViewModel { DumperName = dumperName, ImageURLs = imageURLs});
+        }
+
+        public IActionResult GetImageBytes(string imagePathURL)
+        {
+            byte[] imageBytes = System.IO.File.ReadAllBytes(imagePathURL);
+            return new FileContentResult(imageBytes, "image/png");
         }
 
         public IActionResult InsideDumperBin()

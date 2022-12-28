@@ -76,5 +76,12 @@ namespace DumperApplicationCore.BusinessLogic
 
             await _repository.InsertImageMetaDataAsync(fileNames, dumperId, dumperBinId, constructedFileNames);
         }
+
+        public List<string> GetImagesOfDumper(string dumperName)
+        {
+            int dumperId = _repository.GetDumperIDByTitle(dumperName);
+            if (dumperId > 0) return _repository.GetImagesNamesByDumperID(dumperId);
+            return new List<string>();
+        }
     }
 }
