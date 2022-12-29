@@ -1,3 +1,11 @@
+:root {
+    --submit-form-button-bg-color: #579BB1;
+    --button-border-radius: 0.1em;
+    --submit-form-button-font-color: #ffffff;
+    --body-background-color: #EFF5F5;
+    --div-background-color: #FFFFFF;
+}
+
 html {
   font-size: 14px;
   font-family: 'Lucida Sans Typewriter';
@@ -12,8 +20,40 @@ html {
 html {
   position: relative;
   min-height: 100%;
+  background-color: var(--body-background-color);
 }
 
-body {
-  margin-bottom: 60px;
+.welcome-message-wrapper {
+    display: flex;
+    text-align: center;
+    justify-content: center;    
+}
+
+.welcome-message {
+    max-width: 400px;
+    border-radius: 1em;
+    background-color: var(--div-background-color);
+    box-shadow: 5px 5px 5px rgba(0,0,0,10%);
+    padding: 2em 4em;
+}
+
+input.submit-button {
+    background-color: var(--submit-form-button-bg-color);
+    padding: 0.5em 1em;
+    color: var(--submit-form-button-font-color);
+    border: solid 2px var(--submit-form-button-bg-color);
+    border-radius: var(--button-border-radius);
+    font-size: large;
+    font-weight: 500;
+}
+input.submit-button:hover {
+    color: var(--submit-form-button-bg-color);
+    background-color: var(--submit-form-button-font-color);
+    border: solid 2px var(--submit-form-button-bg-color);
+    cursor: pointer;
+}
+
+.file-upload-section {
+    display: flex;
+    align-items: center;
 }

@@ -9,21 +9,17 @@
 
 <div>
     <form action="~/Dumper/UploadImages" enctype="multipart/form-data" method="post" onsubmit="UploadFile(this); return false;">
-        <dl>
-            <dt>
-                <label for="FileUpload_FormFile">Upload Images</label>
-            </dt>
-            <dd>
-                <input id="FileUpload_FormFile" type="file" name="imageFiles" multiple>
-            </dd>
-        </dl>
+        <div class="file-upload-section">
+            <label for="FileUpload_FormFile">Upload Images</label>
+            <input id="FileUpload_FormFile" type="file" name="imageFiles" multiple />
+            <label for="FileUpload_FormFile"><img src="~/Images/AddButtom.svg" width="32" height="32" /></label>
+        </div>
         <input type="text" name="dumperName" value="@Model.DumperName" hidden />
-        <input class="btn" type="submit" value="Upload" />
+        <input class="submit-button" type="submit" value="Upload" />
         <div>
             <output name="result"></output>
         </div>
     </form>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
 <div>
@@ -33,7 +29,7 @@
             foreach(string imagePathURL in Model.ImageURLs)
             {
                 <text>
-                    <img src="@Url.Action("GetImageBytes","Dumper",new {imagePathURL})" />
+                    <img src="@Url.Action("GetImageBytes","Dumper",new {imagePathURL})" height="100" />
                 </text>
             }
         }

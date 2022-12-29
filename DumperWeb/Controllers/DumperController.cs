@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DumperWeb.Controllers
 {
-    public class DumperController : Controller
+    public class DumperController : BaseController
     {
         private readonly IConfiguration _configuration;
         private readonly DumpAndFetch _manager;

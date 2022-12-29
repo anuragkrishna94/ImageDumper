@@ -2,10 +2,15 @@
     ViewData["Title"] = "Home Page";
 }
 
-@using (Html.BeginForm("CreateDumper", "Home", FormMethod.Post))
-{
-    <input type="submit" value="Create" />
-}
-<div>
-    @Html.ActionLink("Go to Dumper", "Within", "Dumper")
+<div class="welcome-message-wrapper">
+    <div class="welcome-message">
+        <h2>Welcome to ImageDumper</h2>
+        <p>Do you have a lot of images lying around in your phone?</p>
+        <p>Maybe you just want to store them temporarily somewhere without having to sign in!</p>
+        <p>Don't ponder since you've got ImageDumper</p>
+        @using (Html.BeginForm("CreateDumper", "Home", FormMethod.Post))
+        {
+            <input class="submit-button" type="submit" value="Create" />
+        }
+    </div>
 </div>
