@@ -54,5 +54,17 @@ namespace DumperDAL
         {
             return _context.Dumperobject.Where(x => x.ParentDumperID == dumperId).Select(x => x.ConstructedFileName).ToList();
         }
+
+        public IQueryable<Dumper> GetExpiredDumpers()
+        {
+            return _context.Dumper.Where(x => (DateTime.Now - x.CreatedAt).TotalMinutes > 59 && !x.IsDestroyed);
+        }
+
+        public bool MarkExpiredDumperAsDestroyed(Dumper dumper)
+        {
+            dumper.IsDestroyed = true;
+            _context.Dumper.Update(dumper);
+            return _context.SaveChanges() > 0;
+        }
     }
 }

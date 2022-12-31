@@ -83,5 +83,11 @@ namespace DumperApplicationCore.BusinessLogic
             if (dumperId > 0) return _repository.GetImagesNamesByDumperID(dumperId);
             return new List<string>();
         }
+
+        public void UpdateExpiredDumpers()
+        {
+            List<DumperDAL.Entities.Dumper> dumpers = _repository.GetExpiredDumpers().ToList();
+            for (int i = 0; i < dumpers.Count; i++) _repository.MarkExpiredDumperAsDestroyed(dumpers.ElementAt(i));
+        }
     }
 }
