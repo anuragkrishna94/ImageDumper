@@ -86,7 +86,7 @@ namespace DumperApplicationCore.BusinessLogic
 
         public void UpdateExpiredDumpers()
         {
-            List<DumperDAL.Entities.Dumper> dumpers = _repository.GetExpiredDumpers().ToList();
+            List<DumperDAL.Entities.Dumper> dumpers = _repository.GetExpiredDumpers();
             for (int i = 0; i < dumpers.Count; i++) _repository.MarkExpiredDumperAsDestroyed(dumpers.ElementAt(i));
         }
     }
