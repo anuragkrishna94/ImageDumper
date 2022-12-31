@@ -1,5 +1,4 @@
 ﻿using DumperApplicationCore.BusinessLogic;
-using DumperWeb.Helper;
 using DumperWeb.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -23,10 +22,11 @@ namespace DumperWeb.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateDumper()
         {
             string dumperName = _manager.CreateDumper();
-            return RedirectToAction($"InsideDumper", "Dumper", new { dumperName });
+            return Redirect($"~/v/{dumperName}");
         }
 
         public IActionResult Privacy()

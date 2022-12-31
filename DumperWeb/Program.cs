@@ -16,7 +16,7 @@ namespace DumperWeb
             builder.Services.AddScoped(typeof(DumpAndFetch));
 
             var options = new RewriteOptions()
-                .AddRewrite(@"^v?=(.*)$", "Dumper/Within/$1", skipRemainingRules: true);
+                .AddRewrite(@"^v/(.*)$", "Dumper/Within/$1", skipRemainingRules: true);
 
             var app = builder.Build();
             app.UseRewriter(options);

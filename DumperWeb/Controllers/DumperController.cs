@@ -40,6 +40,7 @@ namespace DumperWeb.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UploadImagesAsync(List<IFormFile> imageFiles, string dumperName)
         {
             long size = imageFiles.Sum(f => f.Length);

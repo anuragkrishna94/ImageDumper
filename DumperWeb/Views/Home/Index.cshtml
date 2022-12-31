@@ -8,6 +8,7 @@
         <p>Do you have a lot of images lying around?</p>
         <p>Store them temporarily somewhere without having to sign in!</p>
         <p>Don't ponder since you've got ImageDumper</p>
+        @Html.AntiForgeryToken()
         @using (Html.BeginForm("CreateDumper", "Home", FormMethod.Post))
         {
             <input class="submit-button" type="submit" value="Create" />

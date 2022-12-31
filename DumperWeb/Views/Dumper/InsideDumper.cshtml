@@ -8,6 +8,7 @@
 </div>
 
 <div>
+    @Html.AntiForgeryToken()
     <form action="~/Dumper/UploadImages" enctype="multipart/form-data" method="post" onsubmit="UploadFile(this); return false;">
         <div class="file-upload-section">
             <label for="FileUpload_FormFile">Upload Images</label>
