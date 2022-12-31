@@ -1,7 +1,5 @@
 using DumperApplicationCore;
 using DumperApplicationCore.BusinessLogic;
-using DumperDAL;
-using Microsoft.EntityFrameworkCore;
 
 namespace DumperDeleterService
 {

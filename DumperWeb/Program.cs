@@ -1,5 +1,6 @@
 using DumperApplicationCore;
 using DumperApplicationCore.BusinessLogic;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace DumperWeb
 {
@@ -14,7 +15,11 @@ namespace DumperWeb
             builder.Services.AddSqlServerConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
             builder.Services.AddScoped(typeof(DumpAndFetch));
 
+            var options = new RewriteOptions()
+                .AddRewrite(@"^v?=(.*)$", "Dumper/Within/$1", skipRemainingRules: true);
+
             var app = builder.Build();
+            app.UseRewriter(options);
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
