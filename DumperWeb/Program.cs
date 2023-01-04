@@ -1,5 +1,6 @@
 using DumperApplicationCore;
 using DumperApplicationCore.BusinessLogic;
+using DumperWeb.Hubs;
 using Microsoft.AspNetCore.Rewrite;
 
 namespace DumperWeb
@@ -11,6 +12,7 @@ namespace DumperWeb
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddSignalR();
             builder.Services.AddControllersWithViews();
             builder.Services.AddSqlServerConnection(builder.Configuration.GetConnectionString("DefaultConnection"));
             builder.Services.AddScoped(typeof(DumpAndFetch));
@@ -39,6 +41,7 @@ namespace DumperWeb
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+            app.MapHub<DumperHub>("/dumperHub");
 
             app.Run();
         }

@@ -7,6 +7,8 @@
     <p>Paste this URL in the browser to acess this dumper: @Html.ActionLink("Copy URL", "InsideDumper", "Dumper")</p>
 </div>
 
+<div id="notificationSection"></div>
+
 <div>
     @Html.AntiForgeryToken()
     <form action="~/Dumper/UploadImages" enctype="multipart/form-data" method="post" onsubmit="UploadFile(this); return false;">
@@ -36,7 +38,8 @@
         }
     }
 </div>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.1/signalr.js"></script>
+<script src="~/js/Dumper.js" />
 <script>
     async function UploadFile(formElement) {
         var resultElem = formElement.elements.namedItem("result");
