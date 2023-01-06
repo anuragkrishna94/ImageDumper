@@ -1,4 +1,5 @@
 ﻿using DumperDAL;
+using DumperDAL.Entities;
 using Microsoft.AspNetCore.Http;
 
 namespace DumperApplicationCore.BusinessLogic
@@ -15,7 +16,7 @@ namespace DumperApplicationCore.BusinessLogic
 
         public string CreateDumper()
         {
-            DumperDAL.Entities.Dumper entityDumper = new()
+            Dumper entityDumper = new()
             {
                 UniqueTitle = Guid.NewGuid().ToString(),
                 CreatedAt = DateTime.Now,
@@ -33,7 +34,7 @@ namespace DumperApplicationCore.BusinessLogic
 
         public bool CreateDumperBin(string dumperBinTitle)
         {
-            DumperDAL.Entities.DumperBin entityDumperBin = new()
+            DumperBin entityDumperBin = new()
             {
                 DumperBinTitle = dumperBinTitle,
                 CreatedAt = DateTime.Now
@@ -88,6 +89,41 @@ namespace DumperApplicationCore.BusinessLogic
         {
             List<DumperDAL.Entities.Dumper> dumpers = _repository.GetExpiredDumpers();
             for (int i = 0; i < dumpers.Count; i++) _repository.MarkExpiredDumperAsDestroyed(dumpers.ElementAt(i));
+        }
+
+        public List<int> GetExpiredDumper()
+        {
+            return _repository.GetExpiredDumpers().Select(x => x.ID).ToList();
+        }
+
+        public List<string> GetImageNamesByDumperID(int dumperId)
+        {
+            return _repository.GetImagesNamesByDumperID(dumperId);
+        }
+
+        public async Task DeleteExpiredDumperImagesAsync(List<int> expiredDumperIDs, string imageDumpLoc)
+        {
+            for (int i = 0; i < expiredDumperIDs.Count; i++)
+            {
+                List<string> imagesToBeDeleted = GetImageNamesByDumperID(expiredDumperIDs.ElementAt(i));
+                await DeleteImagesAsync(imagesToBeDeleted, imageDumpLoc);
+            }
+        }
+
+        private Task DeleteImagesAsync(List<string> imagesToBeDeleted, string imageDumpLoc)
+        {
+            return Task.Run(() =>
+            {
+                for (int j = 0; j < imagesToBeDeleted.Count; j++)
+                {
+                    File.Delete(Path.Combine(imageDumpLoc, imagesToBeDeleted.ElementAt(j)));
+                }
+            });
+        }
+
+        public async Task UpdateExpiredDumpersAsync(List<int> expiredDumperIDs)
+        {
+            for (int i = 0; i < expiredDumperIDs.Count; i++) await _repository.MarkExpiredDumperAsDestroyedAsync(expiredDumperIDs.ElementAt(i));
         }
     }
 }

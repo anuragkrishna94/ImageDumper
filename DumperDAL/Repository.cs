@@ -68,5 +68,13 @@ namespace DumperDAL
             _context.Dumper.Update(dumper);
             return _context.SaveChanges() > 0;
         }
+
+        public async Task MarkExpiredDumperAsDestroyedAsync(int dumperId)
+        {
+            Dumper dumper = _context.Dumper.First(x => x.ID == dumperId && !x.IsDestroyed);
+            dumper.IsDestroyed = true;
+            _context.Dumper.Update(dumper);
+            await _context.SaveChangesAsync();
+        }
     }
 }
